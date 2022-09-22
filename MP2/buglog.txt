@@ -1,0 +1,53 @@
+1.
+NAME      : Zimu
+TIME      : 20-3-5
+BUG       : Masking. Left player track on the background.
+SOLUTION  : Undraw the player by drawing the background.
+
+2.
+NAME      : Zimu
+TIME      : 20-3-6
+BUG       : Status Bar. Wrong height of status bar when using 200-18-1 as the value in Compare Line Reg
+SOLUTION  : One pixel height corresponds to 2 scan lines. Change it to (200-18)*2-1.
+
+3.
+NAME      : Zimu
+TIME      : 20-3-6
+BUG       : Status Bar. Display the upper portion of the screen in the position of the status bar.
+SOLUTION  : Change the base addr of the screen from 0 to 0x05A0
+
+4.
+NAME      : Zimu
+TIME      : 20-3-7
+BUG       : Fruit would not update immediately when the player touch the center of it. (would only update when player is moving)
+SOLUTION  : Show the screen every update whatever the redraw is.
+
+5.
+NAME      : Zimu
+TIME      : 20-3-11
+BUG       : Player color changing irregularly. It is because I thought colors are 8bit instead of 6bit.
+SOLUTION  : Set colors in 6 bits.
+
+6.
+NAME      : Zimu
+TIME      : 20-3-11
+BUG       : No text for dew
+SOLUTION  : fnum should begin at 1 but not 0. Set index of fruit string array to fnum - 1
+
+7.
+NAME      : Zimu
+TIME      : 20-3-11
+BUG       : player is above the transparent text
+SOLUTION  : change the order of draw player and draw text 
+
+8.
+NAME      : Zimu
+TIME      : 20-3-13
+BUG       : After reset, led does not display
+SOLUTION  : It is because when the put function received a invalid command, I just return -EINVAL but does not set ack back to 1. Therefore, all commands would be blocked after it. Modify the small bug (index error) and reset ack to 1 before every -EINVAL return
+
+9.
+NAME      : Zimu
+TIME      : 20-3-14
+BUG       : When quit with keyboard, the program crashed
+SOLUTION  :Do not use pthread_join() but pthread_cancel() for tux thread.
